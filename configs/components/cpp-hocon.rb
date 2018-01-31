@@ -12,7 +12,7 @@ component "cpp-hocon" do |pkg, settings, platform|
     cmake = "/usr/local/bin/cmake"
     special_flags = "-DCMAKE_CXX_FLAGS='#{settings[:cflags]}'"
   elsif platform.is_cross_compiled_linux?
-    toolchain = "-DCMAKE_TOOLCHAIN_FILE=/opt/pl-build-tools/#{settings[:platform_triple]}/pl-build-toolchain.cmake"
+    toolchain = "-DCMAKE_TOOLCHAIN_FILE=/opt/pl-build-tools/powerpc-linux-gnu/pl-build-toolchain.cmake"
     cmake = "/opt/pl-build-tools/bin/cmake"
   elsif platform.is_solaris?
     toolchain = "-DCMAKE_TOOLCHAIN_FILE=/opt/pl-build-tools/#{settings[:platform_triple]}/pl-build-toolchain.cmake"
@@ -28,7 +28,7 @@ component "cpp-hocon" do |pkg, settings, platform|
     cmake = "C:/ProgramData/chocolatey/bin/cmake.exe -G \"MinGW Makefiles\""
     toolchain = "-DCMAKE_TOOLCHAIN_FILE=#{settings[:tools_root]}/pl-build-toolchain.cmake"
   else
-    toolchain = "-DCMAKE_TOOLCHAIN_FILE=/opt/pl-build-tools/pl-build-toolchain.cmake"
+    toolchain = "-DCMAKE_TOOLCHAIN_FILE=/opt/pl-build-tools/powerpc-linux-gnu/pl-build-toolchain.cmake"
     cmake = "/opt/pl-build-tools/bin/cmake"
 
     if platform.is_cisco_wrlinux?

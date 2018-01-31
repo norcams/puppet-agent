@@ -49,7 +49,7 @@ component "leatherman" do |pkg, settings, platform|
     special_flags = "-DCMAKE_CXX_FLAGS='#{settings[:cflags]}' -DLEATHERMAN_MOCK_CURL=FALSE"
   elsif platform.is_cross_compiled_linux?
     ruby = "#{settings[:host_ruby]} -r#{settings[:datadir]}/doc/rbconfig.rb"
-    toolchain = "-DCMAKE_TOOLCHAIN_FILE=/opt/pl-build-tools/#{settings[:platform_triple]}/pl-build-toolchain.cmake"
+    toolchain = "-DCMAKE_TOOLCHAIN_FILE=/opt/pl-build-tools/powerpc-linux-gnu/pl-build-toolchain.cmake"
     cmake = "/opt/pl-build-tools/bin/cmake"
   elsif platform.is_solaris?
     if platform.architecture == 'sparc'
@@ -72,7 +72,7 @@ component "leatherman" do |pkg, settings, platform|
     # Use environment variable set in environment.bat to find locale files
     leatherman_locale_var = "-DLEATHERMAN_LOCALE_VAR='PUPPET_DIR' -DLEATHERMAN_LOCALE_INSTALL='share/locale'"
   else
-    toolchain = "-DCMAKE_TOOLCHAIN_FILE=/opt/pl-build-tools/pl-build-toolchain.cmake"
+    toolchain = "-DCMAKE_TOOLCHAIN_FILE=/opt/pl-build-tools/powerpc-linux-gnu/pl-build-toolchain.cmake"
     cmake = "/opt/pl-build-tools/bin/cmake"
 
     if platform.is_cisco_wrlinux?
