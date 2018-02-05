@@ -104,6 +104,7 @@ project "puppet-agent" do |proj|
   platform_triple = "arm-linux-gnueabihf" if platform.name == 'debian-8-armhf'
   platform_triple = "arm-linux-gnueabi" if platform.name == 'debian-8-armel'
   platform_triple = "aarch64-redhat-linux" if platform.name == 'el-7-aarch64'
+  platform_triple = "powerpc-linux-gnu" if platform.name == "debian-7-powerpc"
 
   if platform.is_cross_compiled_linux?
     host = "--host #{platform_triple}"

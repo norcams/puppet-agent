@@ -71,6 +71,10 @@ component "openssl" do |pkg, settings, platform|
       target = 'linux-aarch64'
     elsif platform.name =~ /debian-8-arm/
       target = 'linux-armv4'
+    elsif platform.architecture =~ /powerpc/
+      target = 'linux-ppc'
+    elsif platform.architecture =~ /ppc/
+      target = 'linux-ppc'
     elsif platform.architecture =~ /ppc64/
       target = 'linux-ppc64le'
     elsif platform.architecture == "s390x"
@@ -124,6 +128,7 @@ component "openssl" do |pkg, settings, platform|
       --openssldir=#{settings[:prefix]}/ssl \
       shared \
       no-asm \
+      linux-ppc \
       #{target} \
       #{sslflags} \
       no-camellia \

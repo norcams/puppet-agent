@@ -1,7 +1,7 @@
 component "pxp-agent" do |pkg, settings, platform|
   pkg.load_from_json('configs/components/pxp-agent.json')
 
-  toolchain = "-DCMAKE_TOOLCHAIN_FILE=/opt/pl-build-tools/pl-build-toolchain.cmake"
+  toolchain = "-DCMAKE_TOOLCHAIN_FILE=/opt/pl-build-tools/powerpc-linux-gnu/pl-build-toolchain.cmake"
   cmake = "/opt/pl-build-tools/bin/cmake"
 
   if platform.is_windows?
@@ -28,7 +28,7 @@ component "pxp-agent" do |pkg, settings, platform|
     special_flags += "-DCMAKE_CXX_FLAGS='#{settings[:cflags]}'"
   elsif platform.is_cross_compiled_linux?
     cmake = "/opt/pl-build-tools/bin/cmake"
-    toolchain = "-DCMAKE_TOOLCHAIN_FILE=/opt/pl-build-tools/#{settings[:platform_triple]}/pl-build-toolchain.cmake"
+    toolchain = "-DCMAKE_TOOLCHAIN_FILE=/opt/pl-build-tools/powerpc-linux-gnu/pl-build-toolchain.cmake"
   elsif platform.is_solaris?
     cmake = "/opt/pl-build-tools/i386-pc-solaris2.#{platform.os_version}/bin/cmake"
     toolchain = "-DCMAKE_TOOLCHAIN_FILE=/opt/pl-build-tools/#{settings[:platform_triple]}/pl-build-toolchain.cmake"
@@ -46,14 +46,10 @@ component "pxp-agent" do |pkg, settings, platform|
     special_flags = " -DCMAKE_INSTALL_PREFIX=#{settings[:pxp_root]} "
     cmake = "C:/ProgramData/chocolatey/bin/cmake.exe -G \"MinGW Makefiles\""
     toolchain = "-DCMAKE_TOOLCHAIN_FILE=#{settings[:tools_root]}/pl-build-toolchain.cmake"
+  elsif platform.is_cisco_wrlinux?
+    special_flags += " -DLEATHERMAN_USE_LOCALES=OFF "
   else
-    pkg.build_requires "pl-gcc"
-    pkg.build_requires "pl-cmake"
-    pkg.build_requires "pl-boost"
-
-    if platform.is_cisco_wrlinux?
-      special_flags += " -DLEATHERMAN_USE_LOCALES=OFF "
-    end
+    toolchain = "-DCMAKE_TOOLCHAIN_FILE=/opt/pl-build-tools/powerpc-linux-gnu/pl-build-toolchain.cmake"
   end
 
   # Until we build our own gettext packages, disable using locales.
